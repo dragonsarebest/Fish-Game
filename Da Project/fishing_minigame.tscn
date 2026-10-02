@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ouffowksua5x"]
+
+[node name="FishingMinigame" type="Node3D" unique_id=2029380749]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=604146723]
+
+[node name="Fishing Camera" type="Camera3D" parent="." unique_id=247029767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.339089)
