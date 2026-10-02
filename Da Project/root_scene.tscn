@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://h87vbsp2lq5k"]
 
 [ext_resource type="Script" uid="uid://bmklaxbski273" path="res://move_this_fucker.gd" id="1_itajj"]
+[ext_resource type="Script" uid="uid://dmrntih1oq4fr" path="res://root_scene.gd" id="1_t2jh2"]
 [ext_resource type="AudioStream" uid="uid://dxwljw32woaqx" path="res://pound_noises_atmosphereic.mp3" id="2_c77vg"]
 [ext_resource type="ArrayMesh" uid="uid://b4emlm11co61t" path="res://fish.obj" id="2_iqet6"]
+
+[sub_resource type="Curve" id="Curve_iqet6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ahg1b"]
 height = 2.1809082
@@ -13,20 +18,26 @@ height = 2.1809082
 albedo_color = Color(0.31278992, 0.54416555, 0.31163722, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6jw4u"]
-size = Vector3(2.001587, 0.9388733, 1.956665)
+size = Vector3(2.001587, 0.9388733, 2.593689)
 
-[node name="Root" type="Node3D" unique_id=1451141756]
+[node name="Root" type="Node3D" unique_id=1451141756 node_paths=PackedStringArray("player", "reset_burton")]
+script = ExtResource("1_t2jh2")
+player = NodePath("RigidBody3D")
+reset_burton = NodePath("Node2D/VSplitContainer/Reset to starting pos")
 
 [node name="CameraOverhead" type="Camera3D" parent="." unique_id=1365304083]
 transform = Transform3D(1, 0, 0, 0, 0.88138115, 0.47240582, 0, -0.47240582, 0.88138115, 0, 3.268644, 3.412216)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=569705050 node_paths=PackedStringArray("overhead_cam", "first_person_cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5389047, 0)
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_itajj")
 overhead_cam = NodePath("../CameraOverhead")
 first_person_cam = NodePath("Player Node/Camera First Person")
+curve = SubResource("Curve_iqet6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1999633164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0904541, 0)
@@ -47,12 +58,16 @@ current = true
 
 [node name="Node2D" type="Node2D" parent="." unique_id=186847828]
 
-[node name="CheckBox" type="CheckBox" parent="Node2D" unique_id=1255666854]
-offset_left = 454.0
-offset_top = 291.0
-offset_right = 590.0
-offset_bottom = 322.0
-text = "Hey I am here"
+[node name="VSplitContainer" type="VSplitContainer" parent="Node2D" unique_id=139962781]
+offset_left = 844.0
+offset_top = 582.0
+offset_right = 1148.0
+offset_bottom = 646.0
+
+[node name="Reset to starting pos" type="Button" parent="Node2D/VSplitContainer" unique_id=286153858]
+layout_mode = 2
+focus_mode = 1
+text = "Reset Fish Boy"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1674289622]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.047696114)
@@ -65,12 +80,13 @@ transform = Transform3D(1, 0, 0, 0, 0.059516955, 0.9982273, 0, -0.9982273, 0.059
 spot_range = 12.131983
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=106120368]
-transform = Transform3D(4.4155083, 0, 0, 0, 1, 0, 0, 0, 4.782216, 0, 0, 0)
+transform = Transform3D(4.4155083, 0, 0, 0, 1, 0, 0, 0, 4.782216, -0.2729864, 0, 0)
 mesh = SubResource("PlaneMesh_ahg1b")
 surface_material_override/0 = SubResource("StandardMaterial3D_c77vg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1349847797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.061825123, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1399354097]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020202626, -0.39915466, 0.010681133)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020202626, -0.39915466, 0.3291931)
 shape = SubResource("BoxShape3D_6jw4u")
